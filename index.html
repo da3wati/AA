@@ -224,24 +224,34 @@ img{
 .opening-text{
     position:absolute;
 
-    bottom:8%;
+    bottom:13%;
 
     left:50%;
     transform:translateX(-50%);
 
     white-space:nowrap;
 
-    color:#f5e5c1;
+    color:#ffffff;
 
-    font-size:.9rem;
+    font-size:1.18rem;
+    font-weight:700;
+    letter-spacing:.2px;
 
     text-shadow:
-        0 2px 12px #000;
+        0 2px 14px rgba(0,0,0,.85),
+        0 0 18px rgba(0,0,0,.45);
 
     animation:
         textPulse 2.5s ease-in-out infinite;
 
     z-index:5;
+
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(0,0,0,.16);
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
+    border:1px solid rgba(255,255,255,.16);
 }
 
 @keyframes textPulse{
@@ -928,6 +938,50 @@ footer strong{
 }
 
 /* =========================================================
+   SCROLL DOWN INDICATOR
+========================================================= */
+
+function scrollToNextSection(){
+    const sections = Array.from(
+        document.querySelectorAll("#main > .section")
+    );
+
+    const currentY = window.scrollY + 80;
+
+    const nextSection = sections.find(section =>
+        section.offsetTop > currentY
+    );
+
+    if(nextSection){
+        nextSection.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+    }else{
+        window.scrollTo({
+            top:document.documentElement.scrollHeight,
+            behavior:"smooth"
+        });
+    }
+}
+
+function updateScrollIndicator(){
+    if(!scrollIndicator || !window.__invitationOpened) return;
+
+    const scrollTop = window.scrollY;
+    const viewportBottom = window.innerHeight + scrollTop;
+    const pageHeight = document.documentElement.scrollHeight;
+
+    if(viewportBottom >= pageHeight - 120){
+        scrollIndicator.classList.add("hidden");
+    }else{
+        scrollIndicator.classList.remove("hidden");
+    }
+}
+
+window.addEventListener("scroll", updateScrollIndicator, {passive:true});
+
+/* =========================================================
    MUSIC
 ========================================================= */
 
@@ -957,6 +1011,112 @@ footer strong{
     cursor:pointer;
 
     display:none;
+}
+
+/* =========================================================
+   SCROLL DOWN INDICATOR
+========================================================= */
+
+#scrollIndicator{
+    position:fixed;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:2500;
+
+    width:42px;
+    height:78px;
+
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+
+    color:#ffffff;
+    background:rgba(10,8,8,.24);
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:24px;
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.18);
+
+    cursor:pointer;
+    opacity:.9;
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        background .3s ease;
+}
+
+#scrollIndicator.visible{
+    display:flex;
+    animation:scrollIndicatorIn .7s ease both;
+}
+
+#scrollIndicator.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+#scrollIndicator:hover{
+    background:rgba(10,8,8,.42);
+    transform:translateY(-50%) scale(1.05);
+}
+
+#scrollIndicator .scroll-label{
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.4px;
+    line-height:1;
+    opacity:.8;
+}
+
+#scrollIndicator .scroll-arrow{
+    font-size:25px;
+    line-height:1;
+    animation:scrollArrowBounce 1.5s ease-in-out infinite;
+    text-shadow:0 2px 10px rgba(0,0,0,.8);
+}
+
+@keyframes scrollIndicatorIn{
+    from{
+        opacity:0;
+        transform:translate(12px,-50%);
+    }
+    to{
+        opacity:.9;
+        transform:translate(0,-50%);
+    }
+}
+
+@keyframes scrollArrowBounce{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(7px);
+    }
+}
+
+@media(max-width:650px){
+    #scrollIndicator{
+        right:8px;
+        width:36px;
+        height:68px;
+    }
+
+    #scrollIndicator .scroll-arrow{
+        font-size:22px;
+    }
+
+    #scrollIndicator .scroll-label{
+        font-size:7px;
+    }
 }
 
 /* =========================================================
@@ -1063,7 +1223,9 @@ footer strong{
     }
 
     .opening-text{
-        bottom:5%;
+        bottom:11%;
+        font-size:1.08rem;
+        padding:9px 16px;
     }
 
 }
@@ -1168,6 +1330,21 @@ footer strong{
     type="button">
 
     ♫
+
+</button>
+
+<!-- =====================================================
+     SCROLL DOWN INDICATOR
+===================================================== -->
+
+<button
+    id="scrollIndicator"
+    type="button"
+    aria-label="انزل إلى الأسفل"
+    onclick="scrollToNextSection()">
+
+    <span class="scroll-label">انزل</span>
+    <span class="scroll-arrow">↓</span>
 
 </button>
 
@@ -1623,6 +1800,9 @@ const music =
 const musicButton =
     document.getElementById("musicButton");
 
+const scrollIndicator =
+    document.getElementById("scrollIndicator");
+
 
 /* =========================================================
    OPEN INVITATION
@@ -1648,6 +1828,11 @@ async function openInvitation(event){
     if(openingEl) openingEl.classList.add("open");
     if(musicBtn) musicBtn.style.display = "block";
 
+    /* إظهار سهم النزول بعد فتح الدعوة */
+    if(scrollIndicator){
+        scrollIndicator.classList.add("visible");
+    }
+
     /* تشغيل الموسيقى مباشرة بعد ضغطة المستخدم */
     if(musicEl){
         musicEl.volume = 0.25;
@@ -1664,6 +1849,7 @@ async function openInvitation(event){
     setTimeout(()=>{
         if(openingEl) openingEl.style.display = "none";
         initReveal();
+        updateScrollIndicator();
     }, 1500);
 }
 
