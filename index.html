@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -611,8 +612,7 @@ img{
 }
 
 /* =========================================================
-   GALLERY — معرض هاتف احترافي
-   صورة واحدة ظاهرة + أسهم يمين ويسار + سحب باللمس
+   GALLERY
 ========================================================= */
 
 .gallery-wrapper{
@@ -792,7 +792,6 @@ img{
     margin:0 auto 25px;
 }
 
-
 /* =========================================================
    SPECIAL INSTRUCTIONS
 ========================================================= */
@@ -858,7 +857,15 @@ img{
         0 0 25px rgba(216,179,106,.08);
 }
 
-.instruction-icon svg{width:38px;height:38px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.instruction-icon svg{
+    width:38px;
+    height:38px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
 
 .instruction h3{
     font-family:"Amiri",serif;
@@ -875,7 +882,6 @@ img{
 
     font-size:.9rem;
 }
-
 
 /* =========================================================
    FINAL
@@ -939,82 +945,7 @@ footer strong{
 
 /* =========================================================
    SCROLL DOWN INDICATOR
-========================================================= */
-
-function scrollToNextSection(){
-    const sections = Array.from(
-        document.querySelectorAll("#main > .section")
-    );
-
-    const currentY = window.scrollY + 80;
-
-    const nextSection = sections.find(section =>
-        section.offsetTop > currentY
-    );
-
-    if(nextSection){
-        nextSection.scrollIntoView({
-            behavior:"smooth",
-            block:"start"
-        });
-    }else{
-        window.scrollTo({
-            top:document.documentElement.scrollHeight,
-            behavior:"smooth"
-        });
-    }
-}
-
-function updateScrollIndicator(){
-    if(!scrollIndicator || !window.__invitationOpened) return;
-
-    const scrollTop = window.scrollY;
-    const viewportBottom = window.innerHeight + scrollTop;
-    const pageHeight = document.documentElement.scrollHeight;
-
-    if(viewportBottom >= pageHeight - 120){
-        scrollIndicator.classList.add("hidden");
-    }else{
-        scrollIndicator.classList.remove("hidden");
-    }
-}
-
-window.addEventListener("scroll", updateScrollIndicator, {passive:true});
-
-/* =========================================================
-   MUSIC
-========================================================= */
-
-#musicButton{
-    position:fixed;
-
-    top:18px;
-    left:18px;
-
-    z-index:3000;
-
-    width:50px;
-    height:50px;
-
-    border-radius:50%;
-
-    border:
-        1px solid rgba(255,235,190,.3);
-
-    background:
-        rgba(20,15,15,.55);
-
-    backdrop-filter:blur(12px);
-
-    color:var(--gold-light);
-
-    cursor:pointer;
-
-    display:none;
-}
-
-/* =========================================================
-   SCROLL DOWN INDICATOR
+   تم تكبير السهم
 ========================================================= */
 
 #scrollIndicator{
@@ -1047,6 +978,7 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
 
     cursor:pointer;
     opacity:.9;
+
     transition:
         opacity .3s ease,
         transform .3s ease,
@@ -1076,8 +1008,10 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     opacity:.8;
 }
 
+/* السهم كبير وواضح */
 #scrollIndicator .scroll-arrow{
-    font-size:25px;
+    font-size:40px;
+    font-weight:700;
     line-height:1;
     animation:scrollArrowBounce 1.5s ease-in-out infinite;
     text-shadow:0 2px 10px rgba(0,0,0,.8);
@@ -1088,6 +1022,7 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
         opacity:0;
         transform:translate(12px,-50%);
     }
+
     to{
         opacity:.9;
         transform:translate(0,-50%);
@@ -1098,24 +1033,9 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     0%,100%{
         transform:translateY(0);
     }
+
     50%{
-        transform:translateY(7px);
-    }
-}
-
-@media(max-width:650px){
-    #scrollIndicator{
-        right:8px;
-        width:36px;
-        height:68px;
-    }
-
-    #scrollIndicator .scroll-arrow{
-        font-size:22px;
-    }
-
-    #scrollIndicator .scroll-label{
-        font-size:7px;
+        transform:translateY(9px);
     }
 }
 
@@ -1184,7 +1104,6 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
         grid-template-columns:1fr;
     }
 
-    /* معرض الهاتف */
     .gallery-wrapper{
         padding:
             10px
@@ -1228,6 +1147,20 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
         padding:9px 16px;
     }
 
+    /* سهم النزول على الهاتف */
+    #scrollIndicator{
+        right:8px;
+        width:36px;
+        height:68px;
+    }
+
+    #scrollIndicator .scroll-arrow{
+        font-size:36px;
+    }
+
+    #scrollIndicator .scroll-label{
+        font-size:7px;
+    }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -1238,21 +1171,137 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     }
 }
 
+/* =========================================================
+   BILINGUAL TEXT
+========================================================= */
 
-/* Bilingual text */
-.fr-title{display:block;font-family:"Great Vibes","Amiri",serif;font-size:.72em;direction:ltr;margin-top:5px;opacity:.9;}
-.fr-text,.fr-inline{display:block;direction:ltr;text-align:center;font-family:"Cairo",sans-serif;font-size:.9em;line-height:1.8;margin-top:10px;opacity:.88;}
-.fr-inline{margin-top:6px;font-size:.88em;}
-.date-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(760px,100%);margin:24px auto 18px;}
-.date-icon-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:155px;padding:18px 12px;border:1px solid rgba(212,175,55,.38);border-radius:22px;background:rgba(255,255,255,.055);box-shadow:0 10px 30px rgba(0,0,0,.12);}
-.date-icon{width:54px;height:54px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;color:var(--gold-light);}
-.date-icon svg{width:42px;height:42px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.date-icon-card strong{font-size:26px;color:#d8b45a;}
-.date-icon-card span{font-size:16px;font-weight:700;}
-.date-icon-card small{font-size:12px;opacity:.78;direction:ltr;}
-.instruction.important{border:2px solid rgba(243,221,168,.78);background:linear-gradient(135deg,rgba(243,221,168,.16),rgba(255,255,255,.07));box-shadow:0 0 28px rgba(216,179,106,.16),inset 0 0 25px rgba(243,221,168,.05);transform:scale(1.025);}
-.important-note{display:inline-block;margin-top:14px;padding:6px 16px;border-radius:999px;color:#1b1308;background:linear-gradient(135deg,#f3dda8,#c89e50);font-size:.78rem;}
-@media(max-width:600px){.date-icons{grid-template-columns:1fr;gap:12px;}.date-icon-card{min-height:120px;}.instruction.important{transform:none;}}
+.fr-title{
+    display:block;
+    font-family:"Great Vibes","Amiri",serif;
+    font-size:.72em;
+    direction:ltr;
+    margin-top:5px;
+    opacity:.9;
+}
+
+.fr-text,
+.fr-inline{
+    display:block;
+    direction:ltr;
+    text-align:center;
+    font-family:"Cairo",sans-serif;
+    font-size:.9em;
+    line-height:1.8;
+    margin-top:10px;
+    opacity:.88;
+}
+
+.fr-inline{
+    margin-top:6px;
+    font-size:.88em;
+}
+
+.date-icons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    width:min(760px,100%);
+    margin:24px auto 18px;
+}
+
+.date-icon-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    min-height:155px;
+    padding:18px 12px;
+    border:1px solid rgba(212,175,55,.38);
+    border-radius:22px;
+    background:rgba(255,255,255,.055);
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.date-icon{
+    width:54px;
+    height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:6px;
+    color:var(--gold-light);
+}
+
+.date-icon svg{
+    width:42px;
+    height:42px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.date-icon-card strong{
+    font-size:26px;
+    color:#d8b45a;
+}
+
+.date-icon-card span{
+    font-size:16px;
+    font-weight:700;
+}
+
+.date-icon-card small{
+    font-size:12px;
+    opacity:.78;
+    direction:ltr;
+}
+
+.instruction.important{
+    border:2px solid rgba(243,221,168,.78);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(243,221,168,.16),
+            rgba(255,255,255,.07)
+        );
+    box-shadow:
+        0 0 28px rgba(216,179,106,.16),
+        inset 0 0 25px rgba(243,221,168,.05);
+    transform:scale(1.025);
+}
+
+.important-note{
+    display:inline-block;
+    margin-top:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    color:#1b1308;
+    background:
+        linear-gradient(
+            135deg,
+            #f3dda8,
+            #c89e50
+        );
+    font-size:.78rem;
+}
+
+@media(max-width:600px){
+    .date-icons{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+
+    .date-icon-card{
+        min-height:120px;
+    }
+
+    .instruction.important{
+        transform:none;
+    }
+}
 
 </style>
 </head>
@@ -1332,6 +1381,7 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     ♫
 
 </button>
+
 
 <!-- =====================================================
      SCROLL DOWN INDICATOR
@@ -1420,24 +1470,55 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     </h2>
 
     <div class="date-icons" aria-label="تفاصيل موعد الزفاف">
+
         <div class="date-icon-card">
-            <div class="date-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 9h18"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"/></svg></div>
+
+            <div class="date-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="17" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 9h18"/>
+                    <path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"/>
+                </svg>
+            </div>
+
             <strong>03</strong>
             <span>أكتوبر 2026</span>
             <small>Octobre 2026</small>
+
         </div>
+
         <div class="date-icon-card">
-            <div class="date-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M9 2h6M12 2v2"/></svg></div>
+
+            <div class="date-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7v5l3 2"/>
+                    <path d="M9 2h6M12 2v2"/>
+                </svg>
+            </div>
+
             <strong>20:00</strong>
             <span>إلى 04:00</span>
             <small>De 20h00 à 04h00</small>
+
         </div>
+
         <div class="date-icon-card">
-            <div class="date-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="3.5"/><path d="M9.5 6.2 12 3l2.5 3.2"/></svg></div>
+
+            <div class="date-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="6.5"/>
+                    <circle cx="12" cy="12" r="3.5"/>
+                    <path d="M9.5 6.2 12 3l2.5 3.2"/>
+                </svg>
+            </div>
+
             <strong>السبت</strong>
             <span>موعد فرحتنا</span>
             <small>Samedi · Notre bonheur</small>
+
         </div>
+
     </div>
 
     <div
@@ -1553,7 +1634,6 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
 
     <div class="gallery-wrapper">
 
-        <!-- سهم الصورة السابقة -->
         <button
             class="gallery-arrow gallery-prev"
             id="galleryPrev"
@@ -1600,7 +1680,6 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
 
         </div>
 
-        <!-- سهم الصورة التالية -->
         <button
             class="gallery-arrow gallery-next"
             id="galleryNext"
@@ -1668,6 +1747,7 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
         </strong>
 
     </p>
+
 </div>
 
 </section>
@@ -1696,30 +1776,67 @@ window.addEventListener("scroll", updateScrollIndicator, {passive:true});
     </p>
 
     <div class="instructions">
+
         <div class="instruction">
-            <div class="instruction-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h3l1.5-2h7L17 7h3v12H4z"/><circle cx="12" cy="13" r="3.5"/><path d="M7 9h.01"/></svg></div>
+
+            <div class="instruction-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 7h3l1.5-2h7L17 7h3v12H4z"/>
+                    <circle cx="12" cy="13" r="3.5"/>
+                    <path d="M7 9h.01"/>
+                </svg>
+            </div>
+
             <h3>ممنوع التصوير</h3>
-            <p>نرجو منكم لطفًا عدم التقاط الصور أو تسجيل الفيديوهات أثناء الحفل.
+
+            <p>
+                نرجو منكم لطفًا عدم التقاط الصور أو تسجيل الفيديوهات أثناء الحفل.
                 <span class="fr-inline">Merci de ne pas prendre de photos ni de vidéos pendant la cérémonie.</span>
             </p>
+
         </div>
 
         <div class="instruction important">
-            <div class="instruction-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M9 2h6M12 5v3M12 13l3 2"/><path d="M8 3 6.5 5M16 3l1.5 2"/></svg></div>
+
+            <div class="instruction-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="13" r="8"/>
+                    <path d="M9 2h6M12 5v3M12 13l3 2"/>
+                    <path d="M8 3 6.5 5M16 3l1.5 2"/>
+                </svg>
+            </div>
+
             <h3>احترام الأسماء والوقت</h3>
-            <p>نرجو احترام أسماء الأشخاص المعروضين والالتزام بالوقت المحدد.
+
+            <p>
+                نرجو احترام أسماء الأشخاص المعروضين والالتزام بالوقت المحدد.
                 <span class="fr-inline">Merci de respecter les noms des personnes présentées ainsi que les horaires de la soirée.</span>
             </p>
-            <span class="important-note">ملاحظة مهمة جدًا · Remarque très importante</span>
+
+            <span class="important-note">
+                ملاحظة مهمة جدًا · Remarque très importante
+            </span>
+
         </div>
 
         <div class="instruction">
-            <div class="instruction-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M7 21v-2.5a5 5 0 0 1 10 0V21M4 4l16 16"/></svg></div>
+
+            <div class="instruction-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="7" r="3"/>
+                    <path d="M7 21v-2.5a5 5 0 0 1 10 0V21M4 4l16 16"/>
+                </svg>
+            </div>
+
             <h3>ممنوع لعب الأطفال في القاعة</h3>
-            <p>يمنع لعب الأطفال داخل قاعة الحفل حفاظًا على النظام وسلامة الجميع.
+
+            <p>
+                يمنع لعب الأطفال داخل قاعة الحفل حفاظًا على النظام وسلامة الجميع.
                 <span class="fr-inline">Les jeux des enfants sont interdits à l'intérieur de la salle afin de préserver l'ordre et la sécurité de tous.</span>
             </p>
+
         </div>
+
     </div>
 
 </div>
@@ -1805,61 +1922,177 @@ const scrollIndicator =
 
 
 /* =========================================================
+   SCROLL TO NEXT SECTION
+========================================================= */
+
+function scrollToNextSection(){
+
+    const sections = Array.from(
+        document.querySelectorAll("#main > .section")
+    );
+
+    const currentY =
+        window.scrollY + 80;
+
+    const nextSection =
+        sections.find(section =>
+            section.offsetTop > currentY
+        );
+
+    if(nextSection){
+
+        nextSection.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+    }else{
+
+        window.scrollTo({
+            top:document.documentElement.scrollHeight,
+            behavior:"smooth"
+        });
+
+    }
+}
+
+
+/* =========================================================
+   UPDATE SCROLL INDICATOR
+========================================================= */
+
+function updateScrollIndicator(){
+
+    if(!scrollIndicator ||
+       !window.__invitationOpened) return;
+
+    const scrollTop =
+        window.scrollY;
+
+    const viewportBottom =
+        window.innerHeight + scrollTop;
+
+    const pageHeight =
+        document.documentElement.scrollHeight;
+
+    if(viewportBottom >= pageHeight - 120){
+
+        scrollIndicator.classList.add("hidden");
+
+    }else{
+
+        scrollIndicator.classList.remove("hidden");
+
+    }
+}
+
+window.addEventListener(
+    "scroll",
+    updateScrollIndicator,
+    {passive:true}
+);
+
+
+/* =========================================================
    OPEN INVITATION
 ========================================================= */
 
 async function openInvitation(event){
 
     if(event){
+
         event.preventDefault();
         event.stopPropagation();
+
     }
 
     if(window.__invitationOpened) return;
+
     window.__invitationOpened = true;
 
-    const openingEl = document.getElementById("opening");
-    const mainEl = document.getElementById("main");
-    const musicEl = document.getElementById("music");
-    const musicBtn = document.getElementById("musicButton");
+    const openingEl =
+        document.getElementById("opening");
 
-    /* إظهار الدعوة فورًا */
-    if(mainEl) mainEl.style.display = "block";
-    if(openingEl) openingEl.classList.add("open");
-    if(musicBtn) musicBtn.style.display = "block";
+    const mainEl =
+        document.getElementById("main");
 
-    /* إظهار سهم النزول بعد فتح الدعوة */
-    if(scrollIndicator){
+    const musicEl =
+        document.getElementById("music");
+
+    const musicBtn =
+        document.getElementById("musicButton");
+
+    if(mainEl)
+        mainEl.style.display = "block";
+
+    if(openingEl)
+        openingEl.classList.add("open");
+
+    if(musicBtn)
+        musicBtn.style.display = "block";
+
+    if(scrollIndicator)
         scrollIndicator.classList.add("visible");
-    }
 
-    /* تشغيل الموسيقى مباشرة بعد ضغطة المستخدم */
     if(musicEl){
+
         musicEl.volume = 0.25;
+
         try{
+
             await musicEl.play();
+
             musicPlaying = true;
-            if(musicBtn) musicBtn.textContent = "◼";
+
+            if(musicBtn)
+                musicBtn.textContent = "◼";
+
         }catch(error){
+
             musicPlaying = false;
-            if(musicBtn) musicBtn.textContent = "♫";
+
+            if(musicBtn)
+                musicBtn.textContent = "♫";
+
         }
+
     }
 
     setTimeout(()=>{
-        if(openingEl) openingEl.style.display = "none";
+
+        if(openingEl)
+            openingEl.style.display = "none";
+
         initReveal();
+
         updateScrollIndicator();
-    }, 1500);
+
+    },1500);
+
 }
 
+
 /* احتياط إضافي للأجهزة التي لا تنفذ onclick بشكل طبيعي */
-document.addEventListener("DOMContentLoaded", ()=>{
-    const envelopeEl = document.getElementById("envelope");
-    if(envelopeEl){
-        envelopeEl.addEventListener("click", openInvitation, {once:false});
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        const envelopeEl =
+            document.getElementById("envelope");
+
+        if(envelopeEl){
+
+            envelopeEl.addEventListener(
+                "click",
+                openInvitation,
+                {once:false}
+            );
+
+        }
+
     }
-});
+);
 
 
 /* =========================================================
@@ -1915,7 +2148,8 @@ const weddingDate =
 
 function updateCountdown(){
 
-    const now = Date.now();
+    const now =
+        Date.now();
 
     const distance =
         weddingDate - now;
@@ -2043,10 +2277,6 @@ function initReveal(){
 
 /* =========================================================
    GALLERY
-   معرض صور بشكل هاتف
-   صورة واحدة في كل مرة
-   الأسهم + السحب باللمس والماوس
-   بدون حركة تلقائية حتى تبقى تجربة الهاتف احترافية
 ========================================================= */
 
 const gallery =
@@ -2152,12 +2382,15 @@ function previousGallery(){
 
 }
 
+
 /* =========================================================
    AUTO PLAY — صورة جديدة كل ثانية
 ========================================================= */
 
 setInterval(()=>{
+
     nextGallery();
+
 },1000);
 
 
@@ -2441,7 +2674,9 @@ window.addEventListener(
 
         setTimeout(
             ()=>{
+
                 updateGallery(false);
+
             },
             100
         );
@@ -2449,8 +2684,8 @@ window.addEventListener(
     }
 );
 
-
 </script>
 
 </body>
 </html>
+```
